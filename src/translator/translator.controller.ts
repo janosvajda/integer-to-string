@@ -1,17 +1,15 @@
-import { Body, Controller, Get, Param } from '@nestjs/common';
-import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { TranslatorDto } from './dto/translator.dto';
-import { TranslatorEntity } from './dto/translator.entity';
+import { Body, Controller, Get, Param, Query } from '@nestjs/common';
+import { ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { GetTranslatorDto } from './dto/get-translator.dto';
 import { TranslatorService } from './translator.service';
 
 @Controller('translator')
 @ApiTags('translator')
 export class TranslatorController {
   constructor(private readonly converterService: TranslatorService) {}
-
-  @Get('/:number')
+  @Get(':data')
   @ApiParam({
-    name: 'number',
+    name: 'data',
     required: true,
     description: 'The number that should be translated.',
     schema: { oneOf: [{ type: 'integer' }] },
@@ -19,11 +17,7 @@ export class TranslatorController {
   })
   @ApiOperation({ summary: 'Translate number' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  async getTranslate(
-    @Param('number')
-    @Param()
-    translatorDto: TranslatorDto,
-  ): Promise<TranslatorEntity> {
-    return this.converterService.create(translatorDto);
+  findOne(@Param() params: GetTranslatorDto) {
+    return `Valid: ${params.data}`;
   }
 }

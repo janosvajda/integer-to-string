@@ -1,17 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { TranslatorEntity } from './dto/translator.entity';
-import { TranslatorDto } from './dto/translator.dto';
+import { GetTranslatorDto } from './dto/get-translator.dto';
 
 @Injectable()
 export class TranslatorService {
   private readonly result: TranslatorEntity[] = [];
 
-  create(converter: TranslatorDto): TranslatorEntity {
-    this.result.push(converter);
-    return converter;
+  translate(data: number): TranslatorEntity {
+    console.log('FASZ', data);
+    return this.result[data];
   }
 
-  translate(data: any | undefined): TranslatorEntity {
+  ssss(data: number): TranslatorEntity {
+    console.log(data);
     return this.result[data];
   }
 }
