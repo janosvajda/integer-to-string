@@ -9,11 +9,17 @@ export class EnglishTranslator implements ITranslator {
     console.log('d', data);
     let n = Number(data);
     n = ~~n;
+    const modulus = n % 10;
     console.log('NNN', n);
     console.log('NNN2', num);
     console.log('NNN3', num[n]);
-    if (n < 20) data = num[n];
-    console.log('KYUDYDYD', data);
+    if (n < 20) {
+      data = num[n];
+    }
+    if (n < 100 && n > 19) {
+      data = tens[~~(n / 10) - 2] + (modulus ? ' ' + num[modulus] : '');
+    }
+    console.info('DATA: ', data);
     return data;
   }
 }
