@@ -1,8 +1,8 @@
 const num =
-  'Zero One Two Three Four Five Six Seven Eight Nine Ten Eleven Twelve Thirteen Fourteen Fifteen Sixteen Seventeen Eighteen Nineteen'.split(
+  'zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen'.split(
     ' ',
   );
-const tens = 'Twenty Thirty Forty Fifty Sixty Seventy Eighty Ninety'.split(' ');
+const tens = 'twenty thirty forty fifty sixty seventy eighty ninety'.split(' ');
 
 export class EnglishTranslator implements ITranslator {
   translate(data: string): string {
@@ -13,17 +13,17 @@ export class EnglishTranslator implements ITranslator {
       data = num[n];
     }
     if (n < 100 && n > 19) {
-      data = tens[~~(n / 10) - 2] + (modulus ? ' ' + num[modulus] : '');
+      data = tens[~~(n / 10) - 2] + (modulus ? '-' + num[modulus] : '');
     }
     if (n < 1000 && n > 99)
       data =
         num[~~(n / 100)] +
-        ' Hundred' +
+        ' hundred' +
         (n % 100 == 0 ? '' : ' and ' + this.translate(`${n % 100}`));
     if (n > 999) {
       data =
         this.translate(`${~~(n / 1000)}`) +
-        ' Thousand' +
+        ' thousand' +
         (n % 1000 != 0 ? ' ' + this.translate(`${n % 1000}`) : '');
     }
     return data;
