@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Param, Query } from '@nestjs/common';
-import { ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { Controller, Get, Param } from '@nestjs/common';
+import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { GetTranslatorDto } from './dto/get-translator.dto';
 import { TranslatorService } from './translator.service';
 
