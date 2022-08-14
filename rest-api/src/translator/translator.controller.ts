@@ -1,4 +1,4 @@
-import { Controller, Get, Inject, Param } from '@nestjs/common';
+import { Controller, Get, HttpException, HttpStatus, Inject, Param } from "@nestjs/common";
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { GetTranslatorDto } from './dto/get-translator.dto';
 import { TranslatorService } from './translator.service';
@@ -34,12 +34,16 @@ export class TranslatorController {
   @ApiOperation({ summary: 'Translate number' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   translate(@Param() params: GetTranslatorDto) {
-    const log = `Valid message sent to message broker: ${params.data}`;
     try {
-      this.client.emit('translate.data', { data: params.data });
-      console.info(log);
-      const w = this.client.send('translate.data', { data: params.data });
-      return w;
+      const log = `Valid message sent to message broker: ${params.data}`;
+      console.info('Message sent to transaltor service: ', log);
+      const response = this.client.send('translate.data', params.data);
+      if (!response) {
+        console.warn('Error during translation', response);
+        throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+      }
+      console.info('Number translated: ', response);
+      return response;
     } catch (e) {
       console.warn('Error:', e);
     }
