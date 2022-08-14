@@ -20,4 +20,8 @@ export class AppController {
     this.appService.translate(JSON.stringify(originalMessage.value));
     return response;
   }
+
+  getHello() {
+    return undefined;
+  }
 }
