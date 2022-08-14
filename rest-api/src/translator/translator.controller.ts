@@ -11,6 +11,18 @@ export class TranslatorController {
     private readonly converterService: TranslatorService,
     @Inject('any_name_i_want') private readonly client: ClientKafka,
   ) {}
+
+  async onModuleInit() {
+    ['translate.data'].forEach((key) =>
+      this.client.subscribeToResponseOf(`${key}`),
+    );
+    await this.client.connect();
+  }
+
+  async onModuleDestroy() {
+    await this.client.close();
+  }
+
   @Get(':data')
   @ApiParam({
     name: 'data',
@@ -26,7 +38,8 @@ export class TranslatorController {
     try {
       this.client.emit('translate.data', { data: params.data });
       console.info(log);
-      return log;
+      const w = this.client.send('translate.data', { data: params.data });
+      return w;
     } catch (e) {
       console.warn('Error:', e);
     }
