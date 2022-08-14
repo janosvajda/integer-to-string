@@ -6,7 +6,6 @@ const tens = 'Twenty Thirty Forty Fifty Sixty Seventy Eighty Ninety'.split(' ');
 
 export class EnglishTranslator implements ITranslator {
   translate(data: string): string {
-    console.log('d', data);
     let n = Number(data);
     n = ~~n;
     const modulus = n % 10;
@@ -20,12 +19,12 @@ export class EnglishTranslator implements ITranslator {
       data =
         num[~~(n / 100)] +
         ' Hundred' +
-        (n % 100 == 0 ? '' : ' and ' + this.translate(String(n % 100)));
+        (n % 100 == 0 ? '' : ' and ' + this.translate(`${n % 100}`));
     if (n > 999) {
       data =
-        this.translate(String(~~(n / 1000))) +
+        this.translate(`${~~(n / 1000)}`) +
         ' Thousand' +
-        (n % 1000 != 0 ? ' ' + this.translate(String(n % 1000)) : '');
+        (n % 1000 != 0 ? ' ' + this.translate(`${n % 1000}`) : '');
     }
     return data;
   }
