@@ -4,6 +4,14 @@ import { AppService } from './app.service';
 import { TranslatorModule } from './translator/translator.module';
 import { ConfigModule } from '@nestjs/config';
 
+const serviceConfig = {
+  clientConfig: {
+    clientId: process.env.KAFKA_INSTANCE_NAME, // consumer client id
+    brokers: [process.env.KAFKA_HOST], // kafka broker address
+  },
+  consumerConfig: { groupId: process.env.KAFKA_GROUP }, // consumer group id
+};
+
 @Module({
   controllers: [AppController],
   providers: [AppService],
@@ -11,7 +19,7 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    TranslatorModule,
+    TranslatorModule
   ],
 })
 export class AppModule {}
