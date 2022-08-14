@@ -11,7 +11,7 @@ describe('Translator', () => {
   });
   describe(`Translator should return ${'test'}.`, () => {
     it('Language should exists and equal en', () => {
-      expect(translator.translate('hello')).toBe('hello');
+      expect(translator.translate('19')).toBe('Nineteen');
     });
   });
 });

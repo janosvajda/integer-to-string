@@ -19,6 +19,7 @@ export class Translator {
   }
 
   translate(data: string) {
-    return this._translator.translate(data);
+    const translated = this._translator.translate(data);
+    return translated;
   }
 }
