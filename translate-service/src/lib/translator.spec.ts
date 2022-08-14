@@ -30,7 +30,7 @@ describe('Translator', () => {
   });
   describe(`Translate below 1000 numbers.`, () => {
     it('Translator should return Thirty if data is 100', () => {
-      expect(translator.translate('100')).toBe('Hundred');
+      expect(translator.translate('100')).toBe('One Hundred');
     });
     it('Translator should return Thirty if data is 110', () => {
       expect(translator.translate('110')).toBe('One Hundred and Ten');
@@ -50,10 +50,15 @@ describe('Translator', () => {
       expect(translator.translate('999')).toBe('Nine Hundred and Ninety Nine');
     });
   });
-  describe(`Translate above 1000 numbers.`, () => {
+  describe(`Translate 1000 & above 1000 numbers.`, () => {
     it('Translator should return Thirty if data is 99999', () => {
       expect(translator.translate('99999')).toBe(
         'Ninety Nine Thousand Nine Hundred and Ninety Nine',
+      );
+    });
+    it('Translator should return Thirty if data is 1000', () => {
+      expect(translator.translate('1000')).toBe(
+        'One Thousand',
       );
     });
   });

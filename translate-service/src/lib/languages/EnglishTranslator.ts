@@ -10,16 +10,13 @@ export class EnglishTranslator implements ITranslator {
     let n = Number(data);
     n = ~~n;
     const modulus = n % 10;
-    console.log('NNN', n);
-    console.log('NNN2', num);
-    console.log('NNN3', num[n]);
     if (n < 20) {
       data = num[n];
     }
     if (n < 100 && n > 19) {
       data = tens[~~(n / 10) - 2] + (modulus ? ' ' + num[modulus] : '');
     }
-    if (n < 1000 && n > 100)
+    if (n < 1000 && n > 99)
       data =
         num[~~(n / 100)] +
         ' Hundred' +
@@ -28,7 +25,7 @@ export class EnglishTranslator implements ITranslator {
       data =
         this.translate(String(~~(n / 1000))) +
         ' Thousand' +
-        (n % 1000 != 0 ? ' ' + this.translate(String(n % 1000)) : ' ');
+        (n % 1000 != 0 ? ' ' + this.translate(String(n % 1000)) : '');
     }
     return data;
   }
