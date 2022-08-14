@@ -6,22 +6,22 @@ import {
   Payload,
 } from '@nestjs/microservices';
 import { AppService } from './app.service';
+import { Translator } from './lib/Translator';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
-  @MessagePattern('translate.data')
-  readMessage(@Payload() message: any, @Ctx() context: KafkaContext) {
-    const originalMessage = context.getMessage();
-    const response =
-      `Receiving a new message that should be processed: ` +
-      JSON.stringify(originalMessage.value);
-    this.appService.translate(JSON.stringify(originalMessage.value));
-    return response;
+  private translator: Translator;
+  constructor(private readonly appService: AppService) {
+    this.translator = new Translator();
   }
-
-  getHello() {
-    return undefined;
+  @MessagePattern('translate.data')
+  async readMessage(@Payload() message: any, @Ctx() context: KafkaContext) {
+    try {
+      const data = await context.getMessage().value;
+      return this.translator.translate(String(data));
+    } catch (e) {
+      console.warn('Error: translate.data readMessage', e);
+      return e.toString();
+    }
   }
 }

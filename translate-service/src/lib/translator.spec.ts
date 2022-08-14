@@ -1,4 +1,3 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { Translator } from './Translator';
 
 const translator = new Translator();
