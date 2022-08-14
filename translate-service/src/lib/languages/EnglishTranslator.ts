@@ -19,6 +19,12 @@ export class EnglishTranslator implements ITranslator {
     if (n < 100 && n > 19) {
       data = tens[~~(n / 10) - 2] + (modulus ? ' ' + num[modulus] : '');
     }
+    if (n < 1000 && n > 100)
+      return (
+        num[~~(n / 100)] +
+        ' Hundred' +
+        (n % 100 == 0 ? '' : ' and ' + this.translate(String(n % 100)))
+      );
     console.info('DATA: ', data);
     return data;
   }
