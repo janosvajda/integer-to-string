@@ -5,6 +5,9 @@ const num =
 const tens = 'twenty thirty forty fifty sixty seventy eighty ninety'.split(' ');
 
 export class EnglishTranslator implements ITranslator {
+  /**
+   * @param data string
+   */
   translate(data: string): string {
     let n = Number(data);
     n = ~~n;
