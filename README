@@ -1,8 +1,6 @@
 ## Installation of Kafka server docker container
 
-```bash
-$ docker compose up -d
-```
+docker compose up -d
 
 ## Kafka server admin panel
 
