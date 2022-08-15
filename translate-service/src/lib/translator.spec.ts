@@ -1,11 +1,27 @@
 import { Translator } from './Translator';
+import { EnglishTranslator } from './translators/EnglishTranslator';
 
-const translator = new Translator();
+const translator = new Translator(new EnglishTranslator());
 console.info(translator);
 describe('Translator', () => {
   describe('Translator should have a language.', () => {
     it('Language should exists and equal en', () => {
       expect(translator.language).toBe('en');
+    });
+  });
+  describe(`Non happy path: If language is not supported.`, () => {
+    it('If language is not en', () => {
+      try {
+        translator.language = 'hu';
+      } catch (e) {
+        expect(e.message).toBe('Language is not supported.');
+      }
+    });
+  });
+  describe(`Happy path: If language is supported.`, () => {
+    it('If language is not en', () => {
+      translator.language = 'en';
+      expect(translator.translate('99')).toBe('ninety-nine');
     });
   });
   describe(`Translate below 20.`, () => {

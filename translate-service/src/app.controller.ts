@@ -7,12 +7,13 @@ import {
 } from '@nestjs/microservices';
 import { AppService } from './app.service';
 import { Translator } from './lib/Translator';
+import { EnglishTranslator } from './lib/translators/EnglishTranslator';
 
 @Controller()
 export class AppController {
   private translator: Translator;
   constructor(private readonly appService: AppService) {
-    this.translator = new Translator();
+    this.translator = new Translator(new EnglishTranslator());
   }
   @MessagePattern('translate.data')
   async readMessage(@Payload() message: any, @Ctx() context: KafkaContext) {

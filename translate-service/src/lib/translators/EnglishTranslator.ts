@@ -1,26 +1,32 @@
-const num =
-  'zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen'.split(
-    ' ',
-  );
-const tens = 'twenty thirty forty fifty sixty seventy eighty ninety'.split(' ');
+import { Injectable } from '@nestjs/common';
+import { nums } from '../nums/EnglishNums';
+import { tens } from '../tens/EnglishTens';
 
+@Injectable()
 export class EnglishTranslator implements ITranslator {
+  /**
+   * @param number Number
+   */
+  calculateModulus(number: number) {
+    return number % 10;
+  }
+
   /**
    * @param data string
    */
   translate(data: string): string {
     let n = Number(data);
     n = ~~n;
-    const modulus = n % 10;
+    const modulus = this.calculateModulus(n);
     if (n < 20) {
-      data = num[n];
+      data = nums[n];
     }
     if (n < 100 && n > 19) {
-      data = tens[~~(n / 10) - 2] + (modulus ? '-' + num[modulus] : '');
+      data = tens[~~(n / 10) - 2] + (modulus ? '-' + nums[modulus] : '');
     }
     if (n < 1000 && n > 99)
       data =
-        num[~~(n / 100)] +
+        nums[~~(n / 100)] +
         ' hundred' +
         (n % 100 == 0 ? '' : ' and ' + this.translate(`${n % 100}`));
     if (n > 999) {

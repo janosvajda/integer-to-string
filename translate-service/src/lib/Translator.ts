@@ -1,11 +1,15 @@
 import { EnglishTranslator } from './translators/EnglishTranslator';
 import { SupportedLanguages } from './SupportedLanguages';
+import { Inject, Injectable } from '@nestjs/common';
 
+@Injectable()
 export class Translator {
   private _language: string;
   private _translator: EnglishTranslator;
 
-  constructor() {
+  constructor(
+    @Inject(EnglishTranslator) private englishTranslator: EnglishTranslator,
+  ) {
     this._language = SupportedLanguages.en;
     this.loadTranslator(this._language);
   }
@@ -15,9 +19,12 @@ export class Translator {
   }
 
   /**
-   * @param language
+   * @param language String
    */
   public set language(language) {
+    if (!(<any>Object).values(SupportedLanguages).includes(language)) {
+      throw new Error('Language is not supported.');
+    }
     this._language = language;
   }
 

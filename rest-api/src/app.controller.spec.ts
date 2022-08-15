@@ -16,7 +16,9 @@ describe('AppController', () => {
 
   describe('root', () => {
     it('should return "Converter API."', () => {
-      expect(appController.getHello()).toBe('Converter API.');
+      expect(appController.getHello()).toBe(
+        'Number to string translator REST API.',
+      );
     });
   });
 });
