@@ -42,7 +42,6 @@ export class TranslatorController {
         console.warn('Error during translation', response);
         throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
       }
-      console.info('Number translated: ', response);
       return response;
     } catch (e) {
       console.warn('Error:', e);

@@ -1,11 +1,10 @@
-## Installation of Kafka server
+## Installation of Kafka server docker container
 
 ```bash
-docker compose up -d
+$ docker compose up -d
 ```
 
 ## Kafka server admin panel
 
 http://localhost:8080/
 
-## Start services
