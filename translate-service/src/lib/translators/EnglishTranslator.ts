@@ -4,6 +4,8 @@ import { tens } from '../tens/EnglishTens';
 
 @Injectable()
 export class EnglishTranslator implements ITranslator {
+  private _max = 999999;
+
   /**
    * @param number Number
    */
@@ -11,11 +13,24 @@ export class EnglishTranslator implements ITranslator {
     return number % 10;
   }
 
+  public get max() {
+    return this._max;
+  }
+
   /**
    * @param data string
    */
   translate(data: string): string {
     let n = Number(data);
+
+    if (n > this._max) {
+      throw new Error(
+        'EnglishTranslator max number that can be translated is: ' + this._max,
+      );
+    }
+    if (n < 0) {
+      throw new Error('EnglishTranslator min number is 0.');
+    }
     n = ~~n;
     const modulus = this.calculateModulus(n);
     if (n < 20) {

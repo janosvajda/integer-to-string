@@ -2,7 +2,7 @@ import { Translator } from './Translator';
 import { EnglishTranslator } from './translators/EnglishTranslator';
 
 const translator = new Translator(new EnglishTranslator());
-console.info(translator);
+
 describe('Translator', () => {
   describe('Translator should have a language.', () => {
     it('Language should exists and equal en', () => {
